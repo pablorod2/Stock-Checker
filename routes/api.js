@@ -1,7 +1,9 @@
 "use strict";
+//Pregiven code for the project
 const StockModel = require("../models").Stock;
 const fetch = require("node-fetch");
 
+//We create a new stock function with the stock symbol and the ip address of the user
 async function createStock(stock, like, ip) {
   const newStock = new StockModel({
     symbol: stock,
@@ -11,10 +13,12 @@ async function createStock(stock, like, ip) {
   return savedNew;
 }
 
+//We find a stock function with the stock symbol
 async function findStock(stock) {
   return await StockModel.findOne({ symbol: stock }).exec();
 }
 
+//We save the stock function with the stock symbol, the like and the ip address of the user
 async function saveStock(stock, like, ip) {
   let saved = {};
   const foundStock = await findStock(stock);
@@ -31,6 +35,7 @@ async function saveStock(stock, like, ip) {
   }
 }
 
+//We get the stock function with the stock symbol
 async function getStock(stock) {
   const response = await fetch(
     `https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`
@@ -39,20 +44,19 @@ async function getStock(stock) {
   return { symbol, latestPrice };
 }
 
+//We export the function to the api.js file
 module.exports = function (app) {
   app.route("/api/stock-prices").get(async function (req, res) {
     const { stock, like } = req.query;
+    //if stock is an array, we get the stock data for both stocks
     if (Array.isArray(stock)) {
       console.log("stocks", stock);
-
       const { symbol, latestPrice } = await getStock(stock[0]);
       const { symbol: symbol2, latestPrice: latestPrice2 } = await getStock(
         stock[1]
       );
-
       const firststock = await saveStock(stock[0], like, req.ip);
       const secondstock = await saveStock(stock[1], like, req.ip);
-
       let stockData = [];
       if (!symbol) {
         stockData.push({
@@ -65,7 +69,6 @@ module.exports = function (app) {
           rel_likes: firststock.likes.length - secondstock.likes.length,
         });
       }
-
       if (!symbol2) {
         stockData.push({
           rel_likes: secondstock.likes.length - firststock.likes.length,
@@ -77,21 +80,23 @@ module.exports = function (app) {
           rel_likes: secondstock.likes.length - firststock.likes.length,
         });
       }
-
+      // res.json the stockData
       res.json({
         stockData,
       });
       return;
     }
+    //if stock is not an array, we get the stock data for one stock
     const { symbol, latestPrice } = await getStock(stock);
     if (!symbol) {
+      // res.json the stockData
       res.json({ stockData: { likes: like ? 1 : 0 } });
       return;
     }
-
+    //We save the stock data in the database
     const oneStockData = await saveStock(symbol, like, req.ip);
     console.log("One Stock Data", oneStockData);
-
+    // res.json the stockData
     res.json({
       stockData: {
         stock: symbol,
