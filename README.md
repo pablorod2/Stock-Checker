@@ -28,14 +28,14 @@ DB="mongodbclusterURL"
 The solution is programmed in the routes/api.js folder. We must create functions that allow us to create, find, and save stocks in the database, along with the main module, which will be responsible for resolving the prices and likes of each stock as appropriate. The level of knowledge of how it works is quite high considering what has been reviewed so far. If one follows the bootcamp pattern and faces this requirement, it is unlikely that anyone will be able to properly code the functions, especially because they are asynchronous functions that must wait for a response before continuing. Verifying that the "like" is not the same IP can also be complex, for example:
 
 ****************************************************
-async function createStock(stock, like, ip) {
+<code>async function createStock(stock, like, ip) {
 const newStock = new StockModel({
 symbol: stock,
 likes: like ? [ip] : [],
 });
 const savedNew = await newStock.save();
 return savedNew;
-}
+}</code>
 ****************************************************
 
 Don't forget to configure mongodb database to accept the IP address from replit or it will crush, to check it you can use curl ifconfig.me from shell to get the current IP address you have to allow.
@@ -44,12 +44,9 @@ This example checks if the symbol exists in the database. If it has never been l
 
 The server system doesn't always work properly and is more unstable when there are programming errors. It attempts to run one instance over another automatically every time "npm dev nodemon server.js" is called. You can close the terminal, open another, and the system continues working. To restart, you must kill the process. To do this, use "lsof -i:3000" where 3000 is the port where the server is running. This identifies if it's running and the associated PID. Then, you can run "kill -9 PID" where PID is the process ID. This will terminate the server and it can be called again with the command already indicated.
 
-A have made an alt of the api.js that uses the name of the stock symbol as an identifyer, the problem is that with that implementation the test will not pass making it unproductive to change it by default. I plan to ask for the env_var in the future to check it. Also because of this I have found a issue with calling the function with like from the start. You can replicate the problem calling:
+I have made an alt of the api.js that uses the name of the stock symbol as an identifier, the problem is that with that implementation the test will not pass making it unproductive to change it by default. A simple conditional depending on the ENV_VAR does the work of switching between one API and the ALTernative.
 
-http://server/api/stock-prices/?stock=BA&like=true
+There was an error introduced by the modification of the view js, when the jquery was part of the solution. It comes from the use of the checkbox making it true whether is checked or unchecked, because of the validation procedure. It was fixed as well. The likes show up properly now.
 
-If the Boeing stock is not on the database it should create it and because is like=true should save the IP in the first like. It does not.
-
-This problem does not present a problem for the tests but is something I'm looking at.
-
-The gitHub repo was changed by contributors and it no longer passes the tests, the version in riplit does. At the beginig they were the same.
+[!WARNING]
+The GitHub repo was changed by contributors and it no longer passes the tests, the version in riplit does. At the beginning they were the same. If they don't pass the test check the IP restriction on the MongoDB server to allow connection, not always the error points to that and I find that almost every time is related to the security measure.
