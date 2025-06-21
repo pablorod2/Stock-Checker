@@ -108,7 +108,7 @@ module.exports = function (app) {
         stock: symbol,
         name: name,
         price: latestPrice,
-        likes: oneStockData.likes.length,
+        likes: oneStockData.likes.length-1,
       },
     });
   });
