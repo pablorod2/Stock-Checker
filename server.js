@@ -3,8 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
-const apiRoutes = require("./routes/api.js");
+let apiRoutestr = "";
+if (process.env.NODE_ENV === "test"){
+  apiRoutestr = "./routes/api.js";
+}else{
+  apiRoutestr = "./routes/alt.js";
+}
+const apiRoutes = require(apiRoutestr);
 const fccTestingRoutes = require("./routes/fcctesting.js");
 const runner = require("./test-runner");
 const helmet = require("helmet");

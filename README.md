@@ -43,3 +43,13 @@ Don't forget to configure mongodb database to accept the IP address from replit 
 This example checks if the symbol exists in the database. If it has never been liked, it doesn't exist and creates the entry automatically, but checks the like by IP. Although it's possible to find clues in the repository, the bootcamp doesn't provide this information and must be searched separately.
 
 The server system doesn't always work properly and is more unstable when there are programming errors. It attempts to run one instance over another automatically every time "npm dev nodemon server.js" is called. You can close the terminal, open another, and the system continues working. To restart, you must kill the process. To do this, use "lsof -i:3000" where 3000 is the port where the server is running. This identifies if it's running and the associated PID. Then, you can run "kill -9 PID" where PID is the process ID. This will terminate the server and it can be called again with the command already indicated.
+
+A have made an alt of the api.js that uses the name of the stock symbol as an identifyer, the problem is that with that implementation the test will not pass making it unproductive to change it by default. I plan to ask for the env_var in the future to check it. Also because of this I have found a issue with calling the function with like from the start. You can replicate the problem calling:
+
+http://server/api/stock-prices/?stock=BA&like=true
+
+If the Boeing stock is not on the database it should create it and because is like=true should save the IP in the first like. It does not.
+
+This problem does not present a problem for the tests but is something I'm looking at.
+
+The gitHub repo was changed by contributors and it no longer passes the tests, the version in riplit does. At the beginig they were the same.
