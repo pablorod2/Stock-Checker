@@ -49,7 +49,7 @@ I have made an alt of the api.js that uses the name of the stock symbol as an id
 There was an error introduced by the modification of the view js, when the jquery was part of the solution. It comes from the use of the checkbox making it true whether is checked or unchecked, because of the validation procedure. It was fixed as well. The likes show up properly now.
 
 [!WARNING]
-The GitHub repo was changed by contributors and it no longer passes the tests, the version in riplit does. At the beginning they were the same. If they don't pass the test check the IP restriction on the MongoDB server to allow connection, not always the error points to that and I find that almost every time is related to the security measure.
+The GitHub repo was changed by contributors and did no longer pass the tests, the version in riplit did. At the beginning they were the same. I mannage to make some new changes on commit3 and now should be working if you create a valid .env for the solution. If they don't pass the test check the IP restriction on the MongoDB server to allow connection, not always the error points to that and I find that almost every time is related to the security measure.
 
 [!CAUTION]
 The ALT and API are not the same in other functionality nether, there is a difference between how the test handle the request to push and the API does, this results on saving an likes array with 0 value when the tests are not required and saving a null array when they are. This ends up generating a bug on the display of the likes since it function by length of the array. In one end you need it to count – 1 (array[0]=null) and in the other the full length is correct.
