@@ -18,12 +18,7 @@ mongoose for working with the mongodb database
 node-fetch for retrieving data or parameters
 nodemon for working with the web server and runing the test
 
-The project requires a server that we will configure on a specific port, configured through the .env file, we can use as a sample.env as base, in it we will specify:
-
-PORT=3000
-DB="mongodbclusterURL"
-#NODE_ENV=test
-#We will disable the comment on the previous line at the end to automatically resolve the bootcamp requirements. For this process, tests/2_functional-tests.js is used.
+The project requires a server that we will configure on a specific port, configured through the .env file, we can use as a sample.env as base, in it we can specify the port and db url to mongodb, if you uncomment HELMET and/or NODE_ENV it will proceed to run the tests coded on tests/2_functional-tests.js that are required to pass the course, helmet is another requirement that uses jquery, therefor is optional on dotenv.
 
 The solution is programmed in the routes/api.js folder. We must create functions that allow us to create, find, and save stocks in the database, along with the main module, which will be responsible for resolving the prices and likes of each stock as appropriate. The level of knowledge of how it works is quite high considering what has been reviewed so far. If one follows the bootcamp pattern and faces this requirement, it is unlikely that anyone will be able to properly code the functions, especially because they are asynchronous functions that must wait for a response before continuing. Verifying that the "like" is not the same IP can also be complex, for example:
 
