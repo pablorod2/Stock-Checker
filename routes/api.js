@@ -4,6 +4,10 @@ const StockModel = require("../models").Stock;
 const fetch = require("node-fetch");
 
 //We create a new stock function with the stock symbol and the ip address of the user
+//Optional Chaining Operator (?.): Introduced in ES2020, this operator provides a safe
+//way to access properties of an object that might be null or undefined without causing an error.
+//If the property before the ?. is null or undefined, the expression short-circuits
+//and returns undefined instead of throwing a TypeError. This is importat!
 async function createStock(stock, like, ip) {
   const newStock = new StockModel({
     symbol: stock,
