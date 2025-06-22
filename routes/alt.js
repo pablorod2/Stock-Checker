@@ -4,7 +4,7 @@ const StockModel = require("../models").Stock;
 const fetch = require("node-fetch");
 
 //We create a new stock function with the stock symbol and the ip address of the user
-async function createStock(stock, name, like, ip) {
+async function createStock(stock, like, ip) {
   const newStock = new StockModel({
     symbol: stock,
     likes: like ? [ip] : [],
@@ -108,7 +108,7 @@ module.exports = function (app) {
         stock: symbol,
         name: name,
         price: latestPrice,
-        likes: oneStockData.likes.length-1,
+        likes: oneStockData.likes.length,
       },
     });
   });
