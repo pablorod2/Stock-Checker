@@ -33,7 +33,11 @@ return savedNew;
 }</code>
 ****************************************************
 
-Don't forget to configure mongodb database to accept the IP address from replit or it will crush, to check it you can use curl ifconfig.me from shell to get the current IP address you have to allow.
+Don't forget to configure mongodb database to accept the IP address from replit or it will crush, to check it you can use:
+
+<code>curl ifconfig.me; echo</code> 
+
+from shell to get the current IP address you have to allow.
 
 This example checks if the symbol exists in the database. If it has never been liked, it doesn't exist and creates the entry automatically, but checks the like by IP. Although it's possible to find clues in the repository, the bootcamp doesn't provide this information and must be searched separately.
 
